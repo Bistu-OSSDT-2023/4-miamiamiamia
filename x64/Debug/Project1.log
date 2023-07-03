@@ -1,0 +1,4 @@
+﻿  UI.cpp
+D:\code\Project1\Project1\UI.cpp(245,61): warning C4474: sprintf: 格式字符串中传递的参数太多
+D:\code\Project1\Project1\UI.cpp(245,61): message : 占位符和其参数预计 0 可变参数，但提供的却是 1 参数
+  Project1.vcxproj -> D:\code\Project1\x64\Debug\Project1.exe
