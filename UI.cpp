@@ -81,7 +81,7 @@ void over(int a);
 void full(int a);
 
 
-int max, grade, mode = easy, goal = 5, sum = 0, HyperX, HyperY, number = 2,Time=0,time1=0; //全局变量
+int max, grade, mode = easy, goal = 5, sum = 0, HyperX, HyperY, number = 2,Time=0,time1=0,direction=RIGHT; //全局变量
 IMAGE img[10];
 IMAGE First;
 char a[20] = "";
@@ -116,12 +116,14 @@ void InitInterface()
 			{
 				face[i][j] = WALL; //标记该位置为墙
 				putimage(2* j * 16, 2*i * 16, img + 2);
+				putimage(2 * j * 16, 2 * i * 16 - 16, img + 2);
 			}
 			else if (i == 0 || i == ROW - 1)
 			{
 				face[i][j] = WALL; //标记该位置为墙
 				
 				putimage(2 * j * 16, 2*i * 16, img + 2);
+				putimage(2 * j * 16 + 16, 2 * i * 16, img + 2);
 			}
 			else
 			{
@@ -129,6 +131,8 @@ void InitInterface()
 			}
 		}
 	}
+	putimage(16, 2 * (ROW -1) * 16, img + 2);
+	putimage(16, 0, img + 2);
 	
 	sprintf(a, "当前得分:%d", grade);
 	outtextxy(0,2*ROW*16,a);
@@ -223,6 +227,7 @@ void JudgeFunc(int x, int y)
 		grade += 2 * goal; //更新当前得分
 		Time++;
 		number++;
+		putimage(0, 2 * ROW * 16, img + 8);
 		sprintf(a, "当前得分:%d", grade);
 		outtextxy(0, 2 * ROW * 16, a);
 		sprintf(a, "当前节数:%d", number);
@@ -299,6 +304,7 @@ void DrawSnake(int flag)
 		{
 			//将蛇尾覆盖为空格即可
 			putimage(2 * body[snake.len - 1].x*16, 2*body[snake.len - 1].y*16, img+1);
+			putimage(0, 0, img + 2);
 		}
 	}
 }
@@ -547,9 +553,10 @@ void moveHyperFood() {
 void loadimg() {//加载所有图片
 	for (int i = 0;i <6;i++) {
 		char file[20] = "";
-		sprintf(file,"./images/%d.bmp",i);
+		sprintf(file,"./images/%d.jpg",i);
 		loadimage(img + i, file, 16, 16);
 	}
+	loadimage(img + 2, "./images/2.jpg", 16, 16);
 	loadimage(img + 6, "./images/6.jpg", 1344, 736);
 	loadimage(img + 7, "./images/7.bmp", 2560, 1600);
 	loadimage(img + 8, "./images/8.bmp", 1600, 32);
