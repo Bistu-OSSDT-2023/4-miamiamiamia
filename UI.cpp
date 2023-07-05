@@ -451,6 +451,10 @@ void mune() {
 	setbkmode(TRANSPARENT);
 	settextstyle(100, 0, "隶书");
 	outtextxy(2 * (COL / 2 - 12) * 16, 2 * (ROW / 2 - 7) * 16, "miamiamia贪吃蛇");
+	settextstyle(20, 0, "隶书");
+	outtextxy(2 * (COL / 2 - 13) * 16, 2 * (ROW / 2 + 7) * 16, "当前皮肤");
+	putimage(2 * (COL / 2 - 12) * 16, 2 * (ROW / 2 + 8) * 16, img + skinhead + 2);
+	putimage(2 * (COL / 2 - 12) * 16, 2 * (ROW / 2 + 9) * 16, img + skinbody);
 	settextstyle(40, 0, "隶书");
 	outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 + 10) * 16, "退出");
 	outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 + 4) * 16, "困难");
@@ -458,10 +462,7 @@ void mune() {
 	outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 - 2) * 16, "简单");
 	outtextxy(2 * (COL / 2 + 3) * 16, 2 * flag * 16, "*");
 	outtextxy(2 * (COL / 2 -4) * 16, 2 * (ROW / 2 + 7) * 16, "皮肤切换");
-	settextstyle(20, 0, "隶书");
-	outtextxy(2 * (COL / 2 - 13) * 16, 2 * (ROW / 2 + 7) * 16, "当前皮肤");
-	putimage(2 * (COL / 2 - 12) * 16, 2 * (ROW / 2+8) * 16, img + skinhead + 2);
-	putimage(2 * (COL / 2 - 12) * 16, 2 * (ROW / 2 + 9) * 16, img + skinbody);
+
 
 	while (1) {
 	end:
@@ -474,6 +475,10 @@ void mune() {
 				over(1);
 				settextstyle(100, 0, "隶书");
 				outtextxy(2 * (COL / 2 - 12) * 16, 2 * (ROW / 2 - 7) * 16, "miamiamia贪吃蛇");
+				settextstyle(20, 0, "隶书");
+				outtextxy(2 * (COL / 2 - 13) * 16, 2 * (ROW / 2 + 7) * 16, "当前皮肤");
+				putimage(2 * (COL / 2 - 12) * 16, 2 * (ROW / 2 + 8) * 16, img + skinhead + 2);
+				putimage(2 * (COL / 2 - 12) * 16, 2 * (ROW / 2 + 9) * 16, img + skinbody);
 				settextstyle(40, 0, "隶书");
 				outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 + 10) * 16, "退出");
 				outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 + 4) * 16, "困难");
@@ -481,10 +486,6 @@ void mune() {
 				outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 - 2) * 16, "简单");
 				outtextxy(2 * (COL / 2 + 3) * 16, 2 * flag * 16, "*");
 				outtextxy(2 * (COL / 2 - 4) * 16, 2 * (ROW / 2 + 7) * 16, "皮肤切换");
-				settextstyle(20, 0, "隶书");
-				outtextxy(2 * (COL / 2 - 13) * 16, 2 * (ROW / 2 + 7) * 16, "当前皮肤");
-				putimage(2 * (COL / 2 - 12) * 16, 2 * (ROW / 2 + 8) * 16, img + skinhead + 2);
-				putimage(2 * (COL / 2 - 12) * 16, 2 * (ROW / 2 + 9) * 16, img + skinbody);
 				break;
 			}
 			else {
@@ -498,6 +499,10 @@ void mune() {
 				over(1);
 				settextstyle(100, 0, "隶书");
 				outtextxy(2 * (COL / 2 - 12) * 16, 2 * (ROW / 2 - 7) * 16, "miamiamia贪吃蛇");
+				settextstyle(20, 0, "隶书");
+				outtextxy(2 * (COL / 2 - 13) * 16, 2 * (ROW / 2 + 7) * 16, "当前皮肤");
+				putimage(2 * (COL / 2 - 12) * 16, 2 * (ROW / 2 + 8) * 16, img + skinhead + 2);
+				putimage(2 * (COL / 2 - 12) * 16, 2 * (ROW / 2 + 9) * 16, img + skinbody);
 				settextstyle(40, 0, "隶书");
 				outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 + 10) * 16, "退出");
 				outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 + 4) * 16, "困难");
@@ -505,12 +510,6 @@ void mune() {
 				outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 - 2) * 16, "简单");
 				outtextxy(2 * (COL / 2 + 3) * 16, 2 * flag * 16, "*");
 				outtextxy(2 * (COL / 2 - 4) * 16, 2 * (ROW / 2 + 7) * 16, "皮肤切换");
-				settextstyle(20, 0, "隶书");
-				outtextxy(2 * (COL / 2 - 13) * 16, 2 * (ROW / 2 + 7) * 16, "当前皮肤");
-				settextstyle(20, 0, "隶书");
-				outtextxy(2 * (COL / 2 - 13) * 16, 2 * (ROW / 2 + 7) * 16, "当前皮肤");
-				putimage(2 * (COL / 2 - 12) * 16, 2 * (ROW / 2 + 8) * 16, img + skinhead + 2);
-				putimage(2 * (COL / 2 - 12) * 16, 2 * (ROW / 2 + 9) * 16, img + skinbody);
 				break;
 			}
 			else {
