@@ -79,17 +79,20 @@ void moveHyperFood();
 void loadimg();
 void over(int a);
 void full(int a);
+void changeskin(int a);
+void skinUI();
+void turn(int a);
 
 
-int max, grade, mode = easy, goal = 5, sum = 0, HyperX, HyperY, number = 2,Time=0,time1=0,direction=RIGHT; //全局变量
-IMAGE img[10];
+int max, grade, mode = easy, goal = 5, sum = 0, HyperX, HyperY, number = 2, Time = 0, time1 = 0, skinhead = 10, skinbody = 14,skincode=10; //全局变量
+IMAGE img[30];
 IMAGE First;
 char a[20] = "";
 int main()
 {
 #pragma warning (disable:4996) //消除警告
 	max = 0, grade = 0, number = 2; //初始化变量
-	initgraph(2*42 * 16, 2*23 * 16);
+	initgraph(2 * 42 * 16, 2 * 23 * 16);
 	loadimg();
 	full(1);
 	playmusic(1);
@@ -115,14 +118,14 @@ void InitInterface()
 			if (j == 0 || j == COL - 1)
 			{
 				face[i][j] = WALL; //标记该位置为墙
-				putimage(2* j * 16, 2*i * 16, img + 2);
+				putimage(2 * j * 16, 2 * i * 16, img + 2);
 				putimage(2 * j * 16, 2 * i * 16 - 16, img + 2);
 			}
 			else if (i == 0 || i == ROW - 1)
 			{
 				face[i][j] = WALL; //标记该位置为墙
-				
-				putimage(2 * j * 16, 2*i * 16, img + 2);
+
+				putimage(2 * j * 16, 2 * i * 16, img + 2);
 				putimage(2 * j * 16 + 16, 2 * i * 16, img + 2);
 			}
 			else
@@ -131,15 +134,15 @@ void InitInterface()
 			}
 		}
 	}
-	putimage(16, 2 * (ROW -1) * 16, img + 2);
+	putimage(16, 2 * (ROW - 1) * 16, img + 2);
 	putimage(16, 0, img + 2);
-	
+
 	sprintf(a, "当前得分:%d", grade);
-	outtextxy(0,2*ROW*16,a);
-	sprintf(a,"历史最高得分:%d", max);
-	outtextxy(2 * (COL -10)* 16, 2 * ROW * 16, a);
+	outtextxy(0, 2 * ROW * 16, a);
+	sprintf(a, "历史最高得分:%d", max);
+	outtextxy(2 * (COL - 10) * 16, 2 * ROW * 16, a);
 	sprintf(a, "当前节数:%d", number);
-	outtextxy((COL-6) * 16, 2 * ROW * 16, a);
+	outtextxy((COL - 6) * 16, 2 * ROW * 16, a);
 
 }
 //从文件读取最高分
@@ -197,7 +200,7 @@ void RandFood()
 		j = rand() % COL;
 	} while (face[i][j] != KONG); //确保生成食物的位置为空，若不为空则重新生成
 	face[i][j] = FOOD; //将食物位置进行标记
-	putimage(2 * j * 16, 2*i * 16, img + 3);
+	putimage(2 * j * 16, 2 * i * 16, img + 3);
 }
 //判断得分与结束
 void JudgeFunc(int x, int y)
@@ -215,7 +218,7 @@ void JudgeFunc(int x, int y)
 		outtextxy((COL - 4) * 16, 2 * ROW * 16, a);
 		sprintf(a, "历史最高得分:%d", max);
 		outtextxy(2 * (COL - 10) * 16, 2 * ROW * 16, a);
-		if ((grade + 2 * goal-Time*goal) / (5 * goal) - sum > 0 && mode > 3000) {
+		if ((grade + 2 * goal - Time * goal) / (5 * goal) - sum > 0 && mode > 3000) {
 			sum++;
 			mode = mode - 1000;
 			RandHyperFood();
@@ -242,7 +245,7 @@ void JudgeFunc(int x, int y)
 		if (grade > max)
 		{
 			sprintf(a, "恭喜你打破最高记录，最高记录更新为%d", grade);
-			outtextxy(2 * (COL / 3)*16, (ROW / 2 - 3)*16, a);
+			outtextxy(2 * (COL / 3) * 16, (ROW / 2 - 3) * 16, a);
 			WriteGrade();
 		}
 		else if (grade == max)
@@ -256,10 +259,10 @@ void JudgeFunc(int x, int y)
 			outtextxy(2 * (COL / 3) * 16, (ROW / 2 - 3) * 16, a);
 		}
 		sprintf(a, "请继续加油，当前与最高记录相差%d", max - grade);
-		outtextxy(2 * (COL / 3) * 16, (ROW / 2 ) * 16, "GAME OVER");
+		outtextxy(2 * (COL / 3) * 16, (ROW / 2) * 16, "GAME OVER");
 		while (1) //询问玩家是否再来一局
 		{
-			outtextxy(2 * (COL / 3) * 16, (ROW / 2+3) * 16, "再来一局?(y/n):");
+			outtextxy(2 * (COL / 3) * 16, (ROW / 2 + 3) * 16, "再来一局?(y/n):");
 			int n;
 			n = _getch();
 			if (n == 'y' || n == 'Y')
@@ -281,7 +284,7 @@ void JudgeFunc(int x, int y)
 				over(2); //清空屏幕
 				main(); //重新执行主函数
 			}
-			
+
 		}
 	}
 }
@@ -290,12 +293,12 @@ void DrawSnake(int flag)
 {
 	if (flag == 1) //打印蛇
 	{
-		
-		putimage(2 * snake.x * 16, 2*snake.y * 16, img);
+
+		putimage(2 * snake.x * 16, 2 * snake.y * 16, img+skinhead);
 		for (int i = 0; i < snake.len; i++)
 		{
-			
-			putimage(2 * body[i].x * 16,2* body[i].y * 16, img + 4);
+
+			putimage(2 * body[i].x * 16, 2 * body[i].y * 16, img + skinbody);
 		}
 	}
 	else //覆盖蛇
@@ -303,7 +306,7 @@ void DrawSnake(int flag)
 		if (body[snake.len - 1].x != 0) //防止len++后将(0, 0)位置的墙覆盖
 		{
 			//将蛇尾覆盖为空格即可
-			putimage(2 * body[snake.len - 1].x*16, 2*body[snake.len - 1].y*16, img+1);
+			putimage(2 * body[snake.len - 1].x * 16, 2 * body[snake.len - 1].y * 16, img + 1);
 			putimage(0, 0, img + 2);
 		}
 	}
@@ -362,7 +365,7 @@ void Game()
 	goto first; //第一次进入循环先向默认方向前进
 	while (1)
 	{
-		if (time1==8) {
+		if (time1 == 8) {
 			moveHyperFood();
 		}
 		n = getch(); //读取键值
@@ -382,6 +385,7 @@ void Game()
 			{
 				n = tmp; //那么下一次蛇的移动方向设置为上一次蛇的移动方向
 			}
+			break;
 		case SPACE:
 		case ESC:
 		case 'r':
@@ -395,18 +399,22 @@ void Game()
 		switch (n)
 		{
 		case UP: //方向键：上
+			turn(UP);
 			run(0, -1); //向上移动（横坐标偏移为0，纵坐标偏移为-1）
 			tmp = UP; //记录当前蛇的移动方向
 			break;
 		case DOWN: //方向键：下
+			turn(DOWN);
 			run(0, 1); //向下移动（横坐标偏移为0，纵坐标偏移为1）
 			tmp = DOWN; //记录当前蛇的移动方向
 			break;
 		case LEFT: //方向键：左
+			turn(LEFT);
 			run(-1, 0); //向左移动（横坐标偏移为-1，纵坐标偏移为0）
 			tmp = LEFT; //记录当前蛇的移动方向
 			break;
 		case RIGHT: //方向键：右
+			turn(RIGHT);
 			run(1, 0); //向右移动（横坐标偏移为1，纵坐标偏移为0）
 			tmp = RIGHT; //记录当前蛇的移动方向
 			break;
@@ -415,7 +423,7 @@ void Game()
 			break;
 		case ESC: //退出
 			over(2); //清空屏幕
-			outtextxy(2 * (COL -8) * 16, (ROW / 2 ) * 16, "  游戏结束  ");
+			outtextxy(2 * (COL - 8) * 16, (ROW / 2) * 16, "  游戏结束  ");
 			Sleep(3000);
 			exit(0);
 		case 'r':
@@ -423,7 +431,7 @@ void Game()
 			over(2); //清空屏幕
 			main(); //重新执行主函数
 		}
-		
+
 	}
 }
 void playmusic(int a) {
@@ -438,37 +446,48 @@ void playmusic(int a) {
 }
 void mune() {
 	goal = 5;
-	int n, flag = ROW / 2+1, game = 0;
+	int n, flag = ROW / 2 - 2, game = 0;
 	settextcolor(YELLOW);
 	setbkmode(TRANSPARENT);
 	settextstyle(100, 0, "隶书");
-	outtextxy(2 * (COL / 2-12) * 16, 2 * (ROW / 2 - 7) * 16, "miamiamia贪吃蛇");
+	outtextxy(2 * (COL / 2 - 12) * 16, 2 * (ROW / 2 - 7) * 16, "miamiamia贪吃蛇");
 	settextstyle(40, 0, "隶书");
 	outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 + 10) * 16, "退出");
-	outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 + 7) * 16, "困难");
-	outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 + 4) * 16, "普通");
-	outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 + 1) * 16, "简单");
+	outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 + 4) * 16, "困难");
+	outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 + 1) * 16, "普通");
+	outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 - 2) * 16, "简单");
 	outtextxy(2 * (COL / 2 + 3) * 16, 2 * flag * 16, "*");
+	outtextxy(2 * (COL / 2 -4) * 16, 2 * (ROW / 2 + 7) * 16, "皮肤切换");
+	settextstyle(20, 0, "隶书");
+	outtextxy(2 * (COL / 2 - 13) * 16, 2 * (ROW / 2 + 7) * 16, "当前皮肤");
+	putimage(2 * (COL / 2 - 12) * 16, 2 * (ROW / 2+8) * 16, img + skinhead + 2);
+	putimage(2 * (COL / 2 - 12) * 16, 2 * (ROW / 2 + 9) * 16, img + skinbody);
+
 	while (1) {
 	end:
 		n = getch();
 		switch (n)
 		{
 		case UP: {
-			if (flag != ROW / 2 + 1) {
-				flag=flag-3;
+			if (flag != ROW / 2 - 2) {
+				flag = flag - 3;
 				over(1);
 				settextstyle(100, 0, "隶书");
 				outtextxy(2 * (COL / 2 - 12) * 16, 2 * (ROW / 2 - 7) * 16, "miamiamia贪吃蛇");
 				settextstyle(40, 0, "隶书");
 				outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 + 10) * 16, "退出");
-				outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 + 7) * 16, "困难");
-				outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 + 4) * 16, "普通");
-				outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 + 1) * 16, "简单");
+				outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 + 4) * 16, "困难");
+				outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 + 1) * 16, "普通");
+				outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 - 2) * 16, "简单");
 				outtextxy(2 * (COL / 2 + 3) * 16, 2 * flag * 16, "*");
+				outtextxy(2 * (COL / 2 - 4) * 16, 2 * (ROW / 2 + 7) * 16, "皮肤切换");
+				settextstyle(20, 0, "隶书");
+				outtextxy(2 * (COL / 2 - 13) * 16, 2 * (ROW / 2 + 7) * 16, "当前皮肤");
+				putimage(2 * (COL / 2 - 12) * 16, 2 * (ROW / 2 + 8) * 16, img + skinhead + 2);
+				putimage(2 * (COL / 2 - 12) * 16, 2 * (ROW / 2 + 9) * 16, img + skinbody);
 				break;
 			}
-			else{
+			else {
 				goto end;
 			}
 		}
@@ -481,10 +500,17 @@ void mune() {
 				outtextxy(2 * (COL / 2 - 12) * 16, 2 * (ROW / 2 - 7) * 16, "miamiamia贪吃蛇");
 				settextstyle(40, 0, "隶书");
 				outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 + 10) * 16, "退出");
-				outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 + 7) * 16, "困难");
-				outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 + 4) * 16, "普通");
-				outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 + 1) * 16, "简单");
+				outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 + 4) * 16, "困难");
+				outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 + 1) * 16, "普通");
+				outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 - 2) * 16, "简单");
 				outtextxy(2 * (COL / 2 + 3) * 16, 2 * flag * 16, "*");
+				outtextxy(2 * (COL / 2 - 4) * 16, 2 * (ROW / 2 + 7) * 16, "皮肤切换");
+				settextstyle(20, 0, "隶书");
+				outtextxy(2 * (COL / 2 - 13) * 16, 2 * (ROW / 2 + 7) * 16, "当前皮肤");
+				settextstyle(20, 0, "隶书");
+				outtextxy(2 * (COL / 2 - 13) * 16, 2 * (ROW / 2 + 7) * 16, "当前皮肤");
+				putimage(2 * (COL / 2 - 12) * 16, 2 * (ROW / 2 + 8) * 16, img + skinhead + 2);
+				putimage(2 * (COL / 2 - 12) * 16, 2 * (ROW / 2 + 9) * 16, img + skinbody);
 				break;
 			}
 			else {
@@ -492,23 +518,27 @@ void mune() {
 			}
 		}
 		case SPACE: {
-			if (flag == ROW / 2 + 1) {
+			if (flag == ROW / 2 - 2) {
 				mode = easy;
 				game = 1;
 			}
-			else if (flag == ROW / 2 + 4) {
+			else if (flag == ROW / 2 + 1) {
 				mode = normal;
 				goal = 10;
 				game = 1;
 			}
-			else if (flag == ROW / 2 + 7) {
+			else if (flag == ROW / 2 + 4) {
 				mode = hard;
 				goal = 15;
 				game = 1;
 			}
+			else if(flag == ROW / 2 + 7){
+				skinUI();
+				
+			}
 			else if (flag == ROW / 2 + 10) {
 				over(2); //清空屏幕
-				outtextxy(2 * (COL / 2-8) * 16, ROW * 16, "游戏结束");
+				outtextxy(2 * (COL / 2 - 8) * 16, ROW * 16, "游戏结束");
 				Sleep(3000);
 				exit(0);
 			}
@@ -524,8 +554,8 @@ void mune() {
 	}
 }
 void closemusic(int a) {
-	
-	PlaySound(NULL, NULL,NULL);
+
+	PlaySound(NULL, NULL, NULL);
 
 
 }
@@ -546,14 +576,19 @@ void RandHyperFood() {
 }
 void moveHyperFood() {
 	face[HyperY][HyperX] = KONG; //将食物位置进行移除
-	putimage(2 * HyperY*16, 2*HyperX*16, img + 1);
+	putimage(2 * HyperY * 16, 2 * HyperX * 16, img + 1);
 	time1 = 0;
 
 }
 void loadimg() {//加载所有图片
-	for (int i = 0;i <6;i++) {
+	for (int i = 0;i < 6;i++) {
 		char file[20] = "";
-		sprintf(file,"./images/%d.jpg",i);
+		sprintf(file, "./images/%d.jpg", i);
+		loadimage(img + i, file, 16, 16);
+	}
+	for (int i = 10;i < 30;i++) {
+		char file[20] = "";
+		sprintf(file, "./images/%d.jpg", i);
 		loadimage(img + i, file, 16, 16);
 	}
 	loadimage(img + 2, "./images/2.jpg", 16, 16);
@@ -571,6 +606,148 @@ void full(int a) {
 	}
 	else {
 		putimage(0, 0, img + 7);
+	}
+}
+void changeskin(int a) {
+	if (a == 0) {
+		skinhead = 10;
+		skinbody = 14;
+		skincode = 10;
+	}
+	if (a == 1) {
+		skinhead = 15;
+		skinbody = 19;
+		skincode = 15;
+	}
+	if (a == 2) {
+		skinhead = 20;
+		skinbody = 24;
+		skincode = 20;
+	}
+	if (a == 3) {
+		skinhead = 25;
+		skinbody = 29;
+		skincode = 25;
+	}
+}
+void skinUI() {
+	int n;
+	over(2);
+	int kind=0,flag= ROW / 2 - 10;
+	sprintf(a, "皮肤 %d", kind+1);
+	settextstyle(60, 0, "隶书");
+	outtextxy(2 * (COL / 2 - 4) * 16, 2 * (ROW / 2 - 10) * 16, a);
+	settextstyle(40, 0, "隶书");
+	outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 + 10) * 16, "返回");
+	putimage(2 * (COL / 2 - 2) * 16, 2 * (ROW / 2) * 16, img + skinhead + 2);
+	putimage(2 * (COL / 2 - 2) * 16, 2 * (ROW / 2 + 1)*16, img + skinbody);
+	outtextxy(2 * (COL / 2 - 6) * 16, 2 * flag * 16, "*");
+	while (1) {
+	end:
+		n = getch();
+		switch (n)
+		{
+		case UP: {
+			if (flag != (ROW / 2 - 10)) {
+				flag = (ROW / 2 - 10);
+				over(2);
+				sprintf(a, "皮肤 %d", kind + 1);
+				settextstyle(60, 0, "隶书");
+				outtextxy(2 * (COL / 2 - 4) * 16, 2 * (ROW / 2 - 10) * 16, a);
+				settextstyle(40, 0, "隶书");
+				outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 + 10) * 16, "返回");
+				putimage(2 * (COL / 2 - 2) * 16, 2 * (ROW / 2) * 16, img + skinhead + 2);
+				putimage(2 * (COL / 2 - 2) * 16, 2 * (ROW / 2 + 1) * 16, img + skinbody);
+				outtextxy(2 * (COL / 2 - 6) * 16, 2 * flag * 16, "*");
+				break;
+			}
+			else {
+				goto end;
+			}
+		}
+
+		case DOWN: {
+			if (flag != ROW / 2 + 10) {
+				flag = (ROW / 2 + 10);
+				over(2);
+				sprintf(a, "皮肤 %d", kind + 1);
+				settextstyle(60, 0, "隶书");
+				outtextxy(2 * (COL / 2 - 4) * 16, 2 * (ROW / 2 - 10) * 16, a);
+				settextstyle(40, 0, "隶书");
+				outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 + 10) * 16, "返回");
+				putimage(2 * (COL / 2 - 2) * 16, 2 * (ROW / 2) * 16, img + skinhead + 2);
+				putimage(2 * (COL / 2 - 2) * 16, 2 * (ROW / 2 + 1) * 16, img + skinbody);
+				outtextxy(2 * (COL / 2 - 6) * 16, 2 * flag * 16, "*");
+				break;
+			}
+			else {
+				goto end;
+			}
+		}
+		case RIGHT: {
+			if (flag == (ROW / 2 - 10)&&kind!=3) {
+				kind++;
+				changeskin(kind);
+				over(2);
+				sprintf(a, "皮肤 %d", kind + 1);
+				settextstyle(60, 0, "隶书");
+				outtextxy(2 * (COL / 2 - 4) * 16, 2 * (ROW / 2 - 10) * 16, a);
+				settextstyle(40, 0, "隶书");
+				outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 + 10) * 16, "返回");
+				putimage(2 * (COL / 2 - 2) * 16, 2 * (ROW / 2) * 16, img + skinhead + 2);
+				putimage(2 * (COL / 2 - 2) * 16, 2 * (ROW / 2 + 1) * 16, img + skinbody);
+				outtextxy(2 * (COL / 2 - 6) * 16, 2 * flag * 16, "*");
+				break;
+			}
+			else {
+				goto end;
+			}
+		}
+		case LEFT: {
+			if (flag == (ROW / 2 - 10) && kind != 0) {
+				kind--;
+				changeskin(kind);
+				over(2);
+				sprintf(a, "皮肤 %d", kind + 1);
+				settextstyle(60, 0, "隶书");
+				outtextxy(2 * (COL / 2 - 4) * 16, 2 * (ROW / 2 - 10) * 16, a);
+				settextstyle(40, 0, "隶书");
+				outtextxy(2 * (COL / 2 - 3) * 16, 2 * (ROW / 2 + 10) * 16, "返回");
+				putimage(2 * (COL / 2 - 2) * 16, 2 * (ROW / 2) * 16, img + skinhead + 2);
+				putimage(2 * (COL / 2 - 2) * 16, 2 * (ROW / 2 + 1) * 16, img + skinbody);
+				outtextxy(2 * (COL / 2 - 6) * 16, 2 * flag * 16, "*");
+				break;
+			}
+			else {
+				goto end;
+			}
+		}
+		case SPACE: {
+			
+			if (flag == ROW / 2 + 10) {
+				over(2); //清空屏幕
+				main();
+			}
+			break;
+		}
+
+		}
+		
+	}
+	
+}
+void turn(int a) {
+	if (a == RIGHT) {
+		skinhead = skincode;
+	}
+	if (a == LEFT) {
+		skinhead = skincode + 1;
+	}
+	if (a == UP) {
+		skinhead = skincode + 2;
+	}
+	if (a == DOWN) {
+		skinhead = skincode + 3;
 	}
 }
 

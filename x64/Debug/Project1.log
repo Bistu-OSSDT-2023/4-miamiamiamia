@@ -1,5 +1,5 @@
 ﻿D:\VS\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(531,5): warning MSB8028: 中间目录(x64\Debug\)包含从另一个项目(Project1.vcxproj)共享的文件。   这会导致错误的清除和重新生成行为。
   UI.cpp
-D:\code\Project1\Project1\UI.cpp(250,61): warning C4474: sprintf: 格式字符串中传递的参数太多
-D:\code\Project1\Project1\UI.cpp(250,61): message : 占位符和其参数预计 0 可变参数，但提供的却是 1 参数
+D:\code\Project1\Project1\UI.cpp(253,61): warning C4474: sprintf: 格式字符串中传递的参数太多
+D:\code\Project1\Project1\UI.cpp(253,61): message : 占位符和其参数预计 0 可变参数，但提供的却是 1 参数
   Project1.vcxproj -> D:\code\Project1\x64\Debug\Snack.exe
