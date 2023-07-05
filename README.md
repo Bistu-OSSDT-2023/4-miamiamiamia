@@ -26,10 +26,10 @@ MIT相较于GPL许可证可以让使用者在修改项目代码与对成果的�
 未来，我们的主要方向是整合使用者的反馈和拓展，并推出更多的功能。同时，我们小组也会继续努力进步，如果有好的想法，也会加入到代码中。我们认为，贪吃蛇游戏的代码逻辑性非常严谨，因此适合对游戏开发有兴趣的初学者练手。
  
 ## 参考文献
-https://blog.csdn.net/chenlong_cxy/article/details/119765659
-CSDN社区博客：《常见的开源软件许可证》（常见的开源软件许可证_weixin_34216036的博客-CSDN博客）
-https://blog.csdn.net/liu344439833/article/details/82838080
-https://blog.csdn.net/qq_51701007/article/details/122189470
+https://blog.csdn.net/chenlong_cxy/article/details/119765659  
+CSDN社区博客：《常见的开源软件许可证》（常见的开源软件许可证_weixin_34216036的博客-CSDN博客）  
+https://blog.csdn.net/liu344439833/article/details/82838080  
+https://blog.csdn.net/qq_51701007/article/details/122189470  
 
 ## 致谢
 感谢小组的每一位成员，尤其感谢陈棉康导师的辛苦指导
